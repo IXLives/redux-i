@@ -1,14 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { makeDeposit } from '../actions'
 
 class Deposit extends React.Component {
-	constructor() {
-		super()
-		this.state = {
-			amount: '',
-			account: 'checking',
-		}
+	state =  {
+		amount: 0,
+		account: 'Checking'
 	}
-
+	
 	handleChange = (evt) => {
 		evt.preventDefault()
 
@@ -21,7 +20,7 @@ class Deposit extends React.Component {
 		evt.preventDefault()
 
 		const { amount, account } = this.state
-		this.props.makeDeposit(amount, account)
+		this.props.deposit(amount, account)
 
 		this.setState({
 			amount: '',
@@ -57,4 +56,20 @@ class Deposit extends React.Component {
 	}
 }
 
-export default Deposit
+const mapStateToProps = state => {
+	return {
+		total: state.checking + state.savings
+	}
+}
+
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		deposit: (amount, account) => dispatch(makeDeposit(amount, account))
+// 	}
+// } -- shorthand below
+
+const mapDispatchToProps = {
+	deposit: makeDeposit
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deposit)
