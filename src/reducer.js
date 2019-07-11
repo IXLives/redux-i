@@ -1,7 +1,7 @@
 import { MAKE_DEPOSIT } from "./actions";
 
 const initialState = {
-  checking: 100,
+  checking: 10,
   savings: 5,
 };
 
