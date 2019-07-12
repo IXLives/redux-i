@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { makeDeposit } from '../actions'
+import { makeWithdrawal } from '../actions'
 
-class Deposit extends React.Component {
+class Withdraw extends React.Component {
 	state =  {
 		amount: 0,
 		account: 'Checking',
@@ -17,13 +17,13 @@ class Deposit extends React.Component {
 		})
 	}
 
-	depositMoney = (evt) => {
+	withdrawMoney = (evt) => {
 		evt.preventDefault()
 		//destructuring state from form
 		const { amount, account, description } = this.state
 
 		//calling action handler
-		this.props.makeDeposit(amount, account, description)
+		this.props.makeWithdrawal(amount, account, description)
 		
 		//reset the form after submission
 		this.setState({
@@ -39,10 +39,10 @@ class Deposit extends React.Component {
 
 		return (
 			<section>
-				<h2>Make a Deposit</h2>
+				<h2>Make a Withdrawal</h2>
 				<h6>CURRENT TOTAL: ${total}</h6>
 
-				<form onSubmit={this.depositMoney}>
+				<form onSubmit={this.withdrawMoney}>
 					<input type="number" name="amount" placeholder="Amount in USD" value=
 					{amount} onChange={this.handleChange} required />
 					
@@ -59,7 +59,7 @@ class Deposit extends React.Component {
 
 					<br />
 
-					<button type="submit">Deposit</button>
+					<button type="submit">Withdraw</button>
 				</form>
 			</section>
 		)
@@ -79,10 +79,10 @@ const mapStateToProps = (state) => {
 // }
 // ---- same as this:
 const mapDispatchToProps = {
-	makeDeposit: makeDeposit,
+	makeWithdrawal: makeWithdrawal,
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(Deposit)
+)(Withdraw)
