@@ -9,19 +9,19 @@ export function makeDeposit(amount, account, description) {
 		type: MAKE_DEPOSIT,
 		payload: {
 			amount,
-            account,
-            description
+			account,
+			description,
 		}
 	}
 }
 
-export function makeWithdrawal(ammount, account, description) {
-    return {
-        type: MAKE_WITHDRAWAL,
-        payload: {
-            ammount,
-            account, 
-            description
-        }
-    }
+export function makeWithdrawal(amount, account, description) {
+	return {
+		type: MAKE_WITHDRAWAL,
+		payload: {
+			amount,
+			account,
+			description,
+		},
+	}
 }
