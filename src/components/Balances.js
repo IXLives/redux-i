@@ -13,7 +13,7 @@ function Balances(props) {
 				<li>Savings: ${savings}</li>
 			</ul>
 
-			<ul>
+			<ul className="activity">
 				{accountActivity.map((activity, index) => {
 					return <li key={index}>{activity}</li>
 				})}
