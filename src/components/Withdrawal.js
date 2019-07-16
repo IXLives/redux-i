@@ -47,7 +47,7 @@ class Withdrawal extends React.Component {
 					<input type="number" name="amount" placeholder="Amount in USD" value=
 					{amount} onChange={this.handleChange} required />
 					
-					<span> to </span>
+					<span> from </span>
 					
 					<select name="account" value={account} onChange={this.handleChange}>
 						<option value="checking">Checking</option>
