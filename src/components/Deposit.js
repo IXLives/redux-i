@@ -1,78 +1,91 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { makeDeposit } from '../actions'
+import React from "react";
+import { connect } from "react-redux";
+import { makeDeposit } from "../actions";
 
 class Deposit extends React.Component {
-	constructor() {
-		super()
-		this.state = {
-			amount: '',
-			account: 'checking',
-			description: '',
-		}
-	}
-	
-	handleChange = (evt) => {
-		evt.preventDefault()
+  constructor() {
+    super();
+    this.state = {
+      amount: "",
+      account: "checking",
+      description: ""
+    };
+  }
 
-		this.setState({
-			[evt.target.name]: evt.target.value,
-		})
-	}
+  handleChange = evt => {
+    evt.preventDefault();
 
-	depositMoney = (evt) => {
-		evt.preventDefault()
-		//destructuring state from form
-		const { amount, account, description } = this.state
+    this.setState({
+      [evt.target.name]: evt.target.value
+    });
+  };
 
-		// calling the action creator
-		this.props.makeDeposit(amount, account, description)
+  depositMoney = evt => {
+    evt.preventDefault();
+    //destructuring state from form
+    const { amount, account, description } = this.state;
 
-		// resetting the form after it submits
-		this.setState({
-			amount: '',
-			description: '',
-		})
-	}
+    // calling the action creator
+    this.props.makeDeposit(amount, account, description);
 
-	render() {
-		const { total } = this.props
-		const { amount, account, description } = this.state
+    // resetting the form after it submits
+    this.setState({
+      amount: "",
+      description: ""
+    });
+  };
 
-		return (
-			<section>
-				<h2>Make a Deposit</h2>
-				<h6>CURRENT TOTAL: ${total}</h6>
+  render() {
+    const { total } = this.props;
+    const { amount, account, description } = this.state;
 
-				<form onSubmit={this.depositMoney}>
-					<input type="number" name="amount" placeholder="Amount in USD" value=
-					{amount} onChange={this.handleChange} required />
-					
-					<span> to </span>
-					
-					<select name="account" value={account} onChange={this.handleChange}>
-						<option value="checking">Checking</option>
-						<option value="savings">Savings</option>
-					</select>
-					
-					<br />
+    return (
+      <section>
+        <h2>Make a Deposit</h2>
+        <h6>CURRENT TOTAL: ${total}</h6>
 
-					<input type="text" name="description" placeholder="Description" value={description} onChange={this.handleChange} required />
+        <form onSubmit={this.depositMoney}>
+          <input
+            type="number"
+            name="amount"
+            placeholder="Amount in USD"
+            value={amount}
+            onChange={this.handleChange}
+            required
+          />
 
-					<br />
+          <span> to </span>
 
-					<button type="submit">Deposit</button>
-				</form>
-			</section>
-		)
-	}
+          <select name="account" value={account} onChange={this.handleChange}>
+            <option value="checking">Checking</option>
+            <option value="savings">Savings</option>
+          </select>
+
+          <br />
+
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={description}
+            onChange={this.handleChange}
+            required
+          />
+
+          <br />
+
+          <button type="submit">Deposit</button>
+        </form>
+      </section>
+    );
+  }
 }
 
-const mapStateToProps = (state) => {
-	return {
-		total: state.checking + state.savings,
-	}
-}
+const mapStateToProps = state => {
+  return {
+    total: state.checking + state.savings
+  };
+};
 
 // const mapDispatchToProps = (dispatch) => {
 // 	return {
@@ -81,10 +94,10 @@ const mapStateToProps = (state) => {
 // }
 // ---- same as this:
 const mapDispatchToProps = {
-	makeDeposit: makeDeposit,
-}
+  makeDeposit: makeDeposit
+};
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(Deposit)
+  mapStateToProps,
+  mapDispatchToProps
+)(Deposit);
