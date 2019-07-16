@@ -2,10 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 
 function Balances(props) {
-  const { total, checking, savings, accountActivity } = props;
+  const {
+    total,
+    checking,
+    savings,
+    accountActivity,
+    isLoading,
+    errorMessage
+  } = props;
+
+  if (isLoading) {
+    return <p>Account Loading...</p>
+  }
 
   return (
     <section>
+      {errorMessage && <p className = 'error'>{errorMessage}</p>}
       <h1 className="total">Available Balance: ${total}</h1>
 
       <ul className="balances">
@@ -13,7 +25,7 @@ function Balances(props) {
         <li>Savings: ${savings}</li>
       </ul>
 
-      <ul>
+      <ul className="activity">
         {accountActivity.map((activity, index) => {
           return <li key={index}>{activity}</li>;
         })}
@@ -24,6 +36,8 @@ function Balances(props) {
 
 const mapStateToProps = state => {
   return {
+    isLoading: state.isLoading,
+    errorMessage: state.errorMessage,
     total: state.checking + state.savings,
     checking: state.checking,
     savings: state.savings,

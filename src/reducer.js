@@ -1,7 +1,15 @@
-import { MAKE_DEPOSIT, MAKE_WITHDRAWAL } from "./actions";
+import {
+  MAKE_DEPOSIT,
+  MAKE_WITHDRAWAL,
+  GET_ACCOUNT_FAILURE,
+  GET_ACCOUNT_START,
+  GET_ACCOUNT_SUCCESS
+} from "./actions";
 
 // all state values need an initial value
 const initialState = {
+  isLoading: false,
+  errorMessage: null,
   checking: 0,
   savings: 0,
   accountActivity: []
@@ -25,6 +33,7 @@ export default function(state = initialState, action) {
         accountActivity: newActivity
       };
     }
+
     // NOTE: SAME AS MAKE_DEPOSIT, TWEAKED SO IT SUBTRACTS INSTEAD OF ADDS
     case MAKE_WITHDRAWAL: {
       const { amount, account, description } = action.payload;
@@ -39,6 +48,32 @@ export default function(state = initialState, action) {
         [account]: newAmount,
         accountActivity: newActivity
       };
+    }
+
+    case GET_ACCOUNT_START: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    case GET_ACCOUNT_SUCCESS: {
+      const {checking, savings, accountActivity} = action.payload
+      return {
+        ...state,
+        isLoading: false,
+        checking,
+        savings,
+        accountActivity,
+      }
+    }
+
+    case GET_ACCOUNT_FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload.message
+      }
     }
     default:
       return state;
