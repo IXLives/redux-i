@@ -1,6 +1,15 @@
-const http = require('http')
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+const authData = {
+	username: 'user',
+	password: 'pass',
+	token: 'ahuBHejkJJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA07i73Gebhu98',
+}
 
 const data = {
+	username: authData.username,
 	checking: 1500,
 	savings: 5000,
 	accountActivity: [
@@ -10,21 +19,66 @@ const data = {
 	],
 }
 
+const app = express()
 const port = process.env.PORT ||  8080
-const server = http.createServer((req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', '*')
-	res.setHeader('Content-Type', 'application/json')
 
-	if (req.url === '/') {
-		setTimeout(() => {
-			res.end(JSON.stringify(data))	
-		}, 1000)
-	} else {
-		res.statusCode = 404
-		res.end(JSON.stringify({ message: 'Page Not Found' }))
+app.use(cors())
+app.use(bodyParser.json())
+
+app.get('/', (req, res, next) => {
+	const { authorization } = req.headers
+
+	if (!authorization) {
+		return res.status(403).send({
+			message: 'You must be logged in to do that!',
+		})
 	}
+
+	const token = authorization.replace(/bearer\s/i, '')
+
+	if (token !== authData.token) {
+		return res.status(403).send({
+			message: 'Invalid authorization token!',
+		})
+	}
+
+	// simulate a longer network request
+	setTimeout(() => {
+		res.send(data)
+	}, 1000)
 })
 
-server.listen(port, () => {
+app.post('/login', (req, res, next) => {
+	const { username, password } = req.body
+
+	if (!username || !password) {
+		return next(new Error('Need a username and a password!'))
+	}
+
+	if (username !== authData.username || password !== authData.password) {
+		return res.status(401).send({
+			message: 'Invalid username or password!',
+		})
+	}
+
+	res.send({
+		username,
+		token: authData.token,
+	})
+})
+
+app.use((req, res, next) => {
+	res.status(404).send({
+		message: 'Page Not Found',
+	})
+})
+
+app.use((err, req, res, next) => {
+	res.status(400).send({
+		message: err.message || err,
+	})
+})
+
+app.listen(port, () => {
 	console.log(`Server started at http://localhost:${port}`)
 })
