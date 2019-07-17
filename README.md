@@ -1,3 +1,14 @@
+## Running Locally
+
+After you clone the repo and run `npm install` to install all the dependencies, run these scripts in seperate terminal tabs:
+
+```bash
+$ npm run start-server # this will start the API server
+$ npm start # run this in a new tab to start the React build system
+```
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
