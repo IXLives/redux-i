@@ -8,7 +8,6 @@ function Balances(props) {
 		total,
 		checking,
 		savings,
-		accountActivity,
 	} = props
 
 	if (isLoading) {
