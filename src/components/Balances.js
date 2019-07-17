@@ -12,12 +12,12 @@ function Balances(props) {
   } = props;
 
   if (isLoading) {
-    return <p>Account Loading...</p>
+    return <p>Account Loading...</p>;
   }
 
   return (
     <section>
-      {errorMessage && <p className = 'error'>{errorMessage}</p>}
+      {errorMessage && <p className="error">{errorMessage}</p>}
       <h1 className="total">Available Balance: ${total}</h1>
 
       <ul className="balances">
