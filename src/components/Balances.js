@@ -23,7 +23,8 @@ function Balances(props) {
       <ul className="balances">
         <li>Checking: ${checking}</li>
         <li>Savings: ${savings}</li>
-      </ul>)}
+      </ul></section>
+	  )}
 
 
 
