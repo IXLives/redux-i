@@ -9,7 +9,6 @@ const authData = {
 }
 
 const data = {
-	username: authData.username,
 	checking: 1500,
 	savings: 5000,
 	accountActivity: [
@@ -61,10 +60,12 @@ app.post('/login', (req, res, next) => {
 		})
 	}
 
-	res.send({
-		username,
-		token: authData.token,
-	})
+	// simulate a longer network request
+	setTimeout(() => {
+		res.send({
+			token: authData.token,
+		})
+	}, 1000)
 })
 
 app.use((req, res, next) => {
