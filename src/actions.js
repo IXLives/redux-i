@@ -4,14 +4,6 @@ import axios from 'axios'
 export const MAKE_DEPOSIT = "MAKE_DEPOSIT";
 export const MAKE_WITHDRAWAL = "MAKE_WITHDRAWAL";
 
-// finite states
-// loading state -- immediate
-export const GET_ACCOUNT_START = 'GET_ACCOUNT_START'
-// loaded -- success
-export const GET_ACCOUNT_SUCCESS = 'GET_ACCOUNT_SUCCESS'
-// loaded -- failure
-export const GET_ACCOUNT_FAILURE = 'GET_ACCOUNT_FAILURE'
-
 
 // our loading state - sets to this immediately
 export const GET_ACCOUNT_START = 'GET_ACCOUNT_START'
