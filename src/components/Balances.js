@@ -2,17 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 
 function Balances(props) {
-	const {
-		isLoading,
-		errorMessage,
-		total,
-		checking,
-		savings,
-	} = props
+  const { isLoading, errorMessage, total, checking, savings } = props;
 
-	if (isLoading) {
-		return <p>Account Loading...</p>
-	}
+  if (isLoading) {
+    return <p>Account Loading...</p>;
+  }
 
   return (
     <section>
@@ -22,10 +16,10 @@ function Balances(props) {
       <ul className="balances">
         <li>Checking: ${checking}</li>
         <li>Savings: ${savings}</li>
-      </ul></section>
-	  )}
-
-
+      </ul>
+    </section>
+  );
+}
 
 const mapStateToProps = state => {
   return {

@@ -4,6 +4,9 @@ import {
 	GET_ACCOUNT_START,
 	GET_ACCOUNT_SUCCESS,
 	GET_ACCOUNT_FAILED,
+	LOGIN_START,
+	LOGIN_SUCCESS,
+	LOGIN_FAILED
 } from './actions'
 
 // all state values need an initial value
@@ -68,6 +71,26 @@ export default function(state = initialState, action) {
 				...state,
 				isLoading: false,
 				errorMessage: action.payload.message,
+			}
+		}
+		case LOGIN_START: {
+			return {
+				...state,
+				isLoading: true,
+			}
+		}
+		case LOGIN_SUCCESS: {
+			return {
+				...state,
+				isLoading: false,
+				errorMessage: null,
+			}
+		}
+		case LOGIN_FAILED: {
+			return {
+				...state,
+				errorMessage: action.payload.message,
+				isLoading: false,
 			}
 		}
 		default:

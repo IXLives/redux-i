@@ -84,3 +84,10 @@ button {
 	border: none;
 	cursor: pointer;
 }
+
+.login-form {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
